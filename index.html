@@ -36,8 +36,8 @@
 <section class="preorder" id="preorder"><p class="eyebrow">HCMC · DROP 001</p><h2>THE FIRST 300.</h2><p>Our first production begins when the first 300 pieces are reserved.</p><div class="counter">PRE-ORDER CONCEPT · LAUNCH DATE COMING SOON</div><form id="earlyForm" style="margin:30px auto 0;max-width:560px;display:flex;gap:8px"><input id="earlyEmail" type="email" required placeholder="YOUR EMAIL" style="flex:1;padding:15px;border:1px solid var(--g);background:rgba(255,255,255,.55);font-size:13px"><button class="btn fill" type="submit" style="margin:0">JOIN EARLY ACCESS</button></form><p id="earlyMsg" style="font-size:12px;margin-top:12px"></p></section>
 </main>
 <div class="overlay" id="overlay"></div>
-<section class="product-modal" id="productModal" aria-hidden="true"><button class="close-x" id="modalClose" aria-label="Close">×</button><div class="modal-grid"><div class="modal-visual" id="modalVisual"></div><div class="modal-info"><p class="eyebrow">DROP 001 · PRE-ORDER</p><h3 id="modalName"></h3><div class="price" id="modalPrice"></div><p id="modalColor"></p><p class="option-label">SIZE</p><div class="sizes" id="sizeOptions"></div><button class="add-btn" id="addToBag">ADD TO BAG</button><p style="font-size:11px;line-height:1.6;margin-top:16px">Preview product setup. Replace this temporary visual with the final apparel image when the sample is ready.</p></div></div></section>
-<aside class="cart-drawer" id="cartDrawer" aria-hidden="true"><div class="cart-head"><h3>YOUR BAG</h3><button class="close-x" id="cartClose" aria-label="Close">×</button></div><div class="cart-items" id="cartItems"></div><div class="cart-total"><span>TOTAL</span><span id="cartTotal">0 VND</span></div><a class="checkout-btn" href="#preorder" id="checkoutBtn">CONTINUE TO PRE-ORDER</a></aside>
+<section class="product-modal" id="productModal" aria-hidden="true"><button class="close-x" id="modalClose" aria-label="Close">×</button><div class="modal-grid"><div class="modal-visual" id="modalVisual"></div><div class="modal-info"><p class="eyebrow">DROP 001 · PRE-ORDER</p><h3 id="modalName"></h3><div class="price" id="modalPrice"></div><p id="modalColor"></p><p class="option-label" id="sizeLabel">SIZE</p><div class="sizes" id="sizeOptions"></div><button class="add-btn" id="addToBag">ADD TO BAG</button><p id="previewNote" style="font-size:11px;line-height:1.6;margin-top:16px">Preview product setup. Replace this temporary visual with the final apparel image when the sample is ready.</p></div></div></section>
+<aside class="cart-drawer" id="cartDrawer" aria-hidden="true"><div class="cart-head"><h3 id="bagTitle">YOUR BAG</h3><button class="close-x" id="cartClose" aria-label="Close">×</button></div><div class="cart-items" id="cartItems"></div><div class="cart-total"><span id="totalLabel">TOTAL</span><span id="cartTotal">0 VND</span></div><a class="checkout-btn" href="#preorder" id="checkoutBtn">CONTINUE TO PRE-ORDER</a></aside>
 <div class="toast" id="toast"></div>
 <footer class="footer"><div><div class="brand">PIKLI</div><small>COURT TO CITY.<br>MADE FOR PLAY. WORN FOR LIFE.</small></div><small>SEOUL · HO CHI MINH CITY<br>© 2026 PIKLI</small></footer>
 <script>
@@ -47,23 +47,85 @@ function restart(){clearInterval(timer);timer=setInterval(()=>show(i+1),5500)}
 document.querySelector('.next').onclick=()=>show(i+1);document.querySelector('.prev').onclick=()=>show(i-1);dots.forEach((d,k)=>d.onclick=()=>show(k));
 const hero=document.getElementById('hero');hero.addEventListener('touchstart',e=>startX=e.changedTouches[0].screenX,{passive:true});hero.addEventListener('touchend',e=>{const dx=e.changedTouches[0].screenX-startX;if(Math.abs(dx)>45)show(i+(dx<0?1:-1))},{passive:true});restart();
 
+const C={
+en:{
+announcement:'HCMC DROP 001 · PRE-ORDER OPENS SOON — JOIN EARLY ACCESS',
+nav:['NEW','WOMEN','MEN','STORY','COMMUNITY'],
+heroEy:['HCMC · DROP 001 / SEOUL BORN','HANOI / VIETNAM · PICKLEBALL','PIKLI WOMEN · PERFORMANCE / LIFESTYLE','PIKLI CLUB · EVERYONE'],
+heroTitle:['COURT<br>TO CITY.','PLAY<br>YOUR CITY.','MOVE.<br>STAY STYLISH.','GOOD GAMES.<br>BETTER DAYS.'],
+heroBody:['Made for play. Worn for life. Pickleball style that stays on when the game ends.','Young, social and built for movement — PIKLI follows the game into everyday life.','Clean silhouettes, court-ready comfort and a look that keeps working after the match.','A social pickleball uniform for the people you meet on court and keep seeing in the city.'],
+heroBtn:['SHOP DROP 001','SEE THE DROP','SHOP WOMEN','JOIN THE CLUB'],discover:'DISCOVER PIKLI',
+cats:['01   NEW','02   WOMEN','03   MEN'],bestEy:'DROP 001 · PRE-ORDER',best:'BEST PICKS',view:'VIEW DROP →',
+colors:{tee:'CREAM / FOREST · UNISEX',bottom:'FOREST / CREAM',cap:'FOREST / CREAM'},
+storyEy:'ON COURT / OFF COURT',storyTitle:'SPORT<br>MEETS<br>LIFE.',storyBody:"PIKLI begins on court, but it doesn't end there. Performance enough to play in. Refined enough to keep wearing when the game is over.",storyTag:'SEOUL DESIGNED · ASIA PLAYED',
+symbolEy:'THE PIKLI SYMBOL',symbolTitle:'A SMALL BALL.<br>A BIGGER LIFE.',
+socialEy:'PIKLI SOCIAL · HO CHI MINH CITY',socialTitle:'PLAY.<br>STAY.<br>CONNECT.',socialBody:'PIKLI is building a community around the court — social games, city nights and the people who make pickleball more than a sport.',early:'JOIN EARLY ACCESS',
+preEy:'HCMC · DROP 001',preTitle:'THE FIRST 300.',preBody:'Our first production begins when the first 300 pieces are reserved.',preCounter:'PRE-ORDER · LAUNCH DATE COMING SOON',email:'YOUR EMAIL',
+modalEy:'DROP 001 · PRE-ORDER',size:'SIZE',add:'ADD TO BAG',preview:'Preview product setup. Replace this temporary visual with the final apparel image when the sample is ready.',
+bag:'YOUR BAG',total:'TOTAL',continue:'CONTINUE TO PRE-ORDER',empty:'Your bag is empty.',remove:'REMOVE',
+toastSize:'Select a size first',toastAdded:'Added to bag',toastCheckout:'Pre-order checkout will connect after payment setup',toastEarly:'Early access saved',
+filterAll:'SHOWING DROP 001',filterWomen:'SHOWING WOMEN EDIT',filterMen:'SHOWING MEN EDIT',earlySaved:'EARLY ACCESS SAVED ON THIS DEVICE · DATABASE CONNECTION COMING NEXT',
+footer:'SEOUL · HO CHI MINH CITY'
+},
+vi:{
+announcement:'HCMC DROP 001 · SẮP MỞ PRE-ORDER — ĐĂNG KÝ TRƯỚC',
+nav:['MỚI','NỮ','NAM','CÂU CHUYỆN','CỘNG ĐỒNG'],
+heroEy:['HCMC · DROP 001 / THIẾT KẾ TỪ SEOUL','HÀ NỘI / VIỆT NAM · PICKLEBALL','PIKLI WOMEN · HIỆU NĂNG / LIFESTYLE','PIKLI CLUB · DÀNH CHO MỌI NGƯỜI'],
+heroTitle:['COURT<br>TO CITY.','CHƠI CÙNG<br>THÀNH PHỐ.','DI CHUYỂN.<br>GIỮ PHONG CÁCH.','TRẬN ĐẤU HAY.<br>NGÀY TƯƠI HƠN.'],
+heroBody:['Thiết kế để chơi. Mặc cho cả ngày. Phong cách pickleball vẫn hợp ngay cả khi trận đấu kết thúc.','Trẻ, năng động và giàu tính kết nối — PIKLI đưa pickleball vào nhịp sống thường ngày.','Phom dáng gọn gàng, thoải mái trên sân và vẫn đẹp khi rời sân.','Trang phục pickleball mang tinh thần cộng đồng — từ những người gặp trên sân đến những cuộc hẹn trong thành phố.'],
+heroBtn:['XEM DROP 001','XEM BỘ SƯU TẬP','XEM ĐỒ NỮ','THAM GIA CLUB'],discover:'KHÁM PHÁ PIKLI',
+cats:['01   MỚI','02   NỮ','03   NAM'],bestEy:'DROP 001 · PRE-ORDER',best:'NỔI BẬT',view:'XEM DROP →',
+colors:{tee:'KEM / XANH RỪNG · UNISEX',bottom:'XANH RỪNG / KEM',cap:'XANH RỪNG / KEM'},
+storyEy:'TRÊN SÂN / NGOÀI SÂN',storyTitle:'THỂ THAO<br>GẶP<br>CUỘC SỐNG.',storyBody:'PIKLI bắt đầu trên sân nhưng không dừng lại ở đó. Đủ hiệu năng để chơi, đủ tinh tế để tiếp tục mặc sau trận đấu.',storyTag:'THIẾT KẾ TẠI SEOUL · CHƠI KHẮP CHÂU Á',
+symbolEy:'BIỂU TƯỢNG PIKLI',symbolTitle:'TRÁI BÓNG NHỎ.<br>CUỘC SỐNG LỚN HƠN.',
+socialEy:'PIKLI SOCIAL · TP. HỒ CHÍ MINH',socialTitle:'CHƠI.<br>Ở LẠI.<br>KẾT NỐI.',socialBody:'PIKLI đang xây dựng một cộng đồng quanh sân đấu — những trận social, những buổi tối trong thành phố và những con người khiến pickleball trở thành nhiều hơn một môn thể thao.',early:'ĐĂNG KÝ TRƯỚC',
+preEy:'HCMC · DROP 001',preTitle:'300 SẢN PHẨM ĐẦU TIÊN.',preBody:'Đợt sản xuất đầu tiên sẽ bắt đầu khi đủ 300 sản phẩm được đặt trước.',preCounter:'PRE-ORDER · NGÀY MỞ BÁN SẼ SỚM ĐƯỢC CÔNG BỐ',email:'EMAIL CỦA BẠN',
+modalEy:'DROP 001 · PRE-ORDER',size:'KÍCH THƯỚC',add:'THÊM VÀO GIỎ',preview:'Hình sản phẩm hiện tại chỉ là bản xem trước. Ảnh sản phẩm thật sẽ được thay vào ngay khi mẫu hoàn thiện.',
+bag:'GIỎ HÀNG',total:'TỔNG',continue:'TIẾP TỤC PRE-ORDER',empty:'Giỏ hàng của bạn đang trống.',remove:'XÓA',
+toastSize:'Vui lòng chọn kích thước',toastAdded:'Đã thêm vào giỏ',toastCheckout:'Thanh toán pre-order sẽ được kết nối sau khi cổng thanh toán hoàn tất',toastEarly:'Đã lưu đăng ký sớm',
+filterAll:'ĐANG HIỂN THỊ DROP 001',filterWomen:'ĐANG HIỂN THỊ ĐỒ NỮ',filterMen:'ĐANG HIỂN THỊ ĐỒ NAM',earlySaved:'ĐÃ LƯU ĐĂNG KÝ SỚM TRÊN THIẾT BỊ NÀY · SẼ KẾT NỐI CƠ SỞ DỮ LIỆU Ở BƯỚC TIẾP THEO',
+footer:'SEOUL · TP. HỒ CHÍ MINH'
+}};
+let lang=localStorage.getItem('pikliLang')||'vi';
+
 const overlay=document.getElementById('overlay'),modal=document.getElementById('productModal'),drawer=document.getElementById('cartDrawer'),count=document.getElementById('cartCount'),itemsEl=document.getElementById('cartItems'),totalEl=document.getElementById('cartTotal'),toast=document.getElementById('toast');
 let current=null,selectedSize='',cart=JSON.parse(localStorage.getItem('pikliCart')||'[]');
 const money=n=>new Intl.NumberFormat('vi-VN').format(n)+' VND';
 function logoMarkup(){return '<span class="mark"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span>'}
-function renderCart(){count.textContent=cart.length;itemsEl.innerHTML=cart.length?cart.map((x,idx)=>'<div class="cart-row"><div><b>'+x.name+'</b><small>'+x.size+' · '+x.color+'</small><button class="remove" data-remove="'+idx+'">REMOVE</button></div><b>'+money(x.price)+'</b></div>').join(''):'<div class="empty">Your bag is empty.</div>';totalEl.textContent=money(cart.reduce((s,x)=>s+x.price,0));localStorage.setItem('pikliCart',JSON.stringify(cart))}
+function t(){return C[lang]}
+function applyLang(){
+ document.documentElement.lang=lang==='vi'?'vi':'en';
+ document.querySelector('.top').textContent=t().announcement;
+ document.querySelectorAll('.navlinks a').forEach((a,k)=>a.textContent=t().nav[k]);
+ document.getElementById('langToggle').textContent=lang==='vi'?'EN':'VI';
+ document.querySelectorAll('.slide').forEach((s,k)=>{s.querySelector('.eyebrow').textContent=t().heroEy[k];const h=s.querySelector('h1,h2');h.innerHTML=t().heroTitle[k];s.querySelector('.slide-copy>p:not(.eyebrow)').textContent=t().heroBody[k];const b=s.querySelector('.btn.fill');if(b)b.textContent=t().heroBtn[k]});
+ const disc=document.querySelector('.slide:first-child .buttons .btn:not(.fill)');if(disc)disc.textContent=t().discover;
+ document.querySelectorAll('.category a').forEach((a,k)=>a.textContent=t().cats[k]);
+ const bs=document.querySelector('#drop .eyebrow');if(bs)bs.textContent=t().bestEy;document.querySelector('#drop h2').textContent=t().best;document.querySelector('#drop .section-head>a').textContent=t().view;
+ document.querySelector('[data-id="tee"] .meta span').textContent=t().colors.tee;document.querySelector('[data-id="bottom"] .meta span').textContent=t().colors.bottom;document.querySelector('[data-id="cap"] .meta span').textContent=t().colors.cap;
+ const story=document.querySelector('#story .copy');story.querySelector('.eyebrow').textContent=t().storyEy;story.querySelector('h2').innerHTML=t().storyTitle;story.querySelectorAll('p')[1].textContent=t().storyBody;story.querySelectorAll('p')[2].textContent=t().storyTag;
+ document.querySelector('.symbol-sec .eyebrow').textContent=t().symbolEy;document.querySelector('.symbol-sec h2').innerHTML=t().symbolTitle;
+ const soc=document.querySelector('#social .copy');soc.querySelector('.eyebrow').textContent=t().socialEy;soc.querySelector('h3').innerHTML=t().socialTitle;soc.querySelectorAll('p')[1].textContent=t().socialBody;soc.querySelector('.btn').textContent=t().early;
+ document.querySelector('#preorder>.eyebrow').textContent=t().preEy;document.querySelector('#preorder h2').textContent=t().preTitle;document.querySelector('#preorder>p:not(.eyebrow)').textContent=t().preBody;document.querySelector('#preorder .counter').textContent=t().preCounter;document.getElementById('earlyEmail').placeholder=t().email;document.querySelector('#earlyForm button').textContent=t().early;
+ document.querySelector('#productModal .eyebrow').textContent=t().modalEy;document.getElementById('sizeLabel').textContent=t().size;document.getElementById('addToBag').textContent=t().add;document.getElementById('previewNote').textContent=t().preview;document.getElementById('bagTitle').textContent=t().bag;document.getElementById('totalLabel').textContent=t().total;document.getElementById('checkoutBtn').textContent=t().continue;
+ document.querySelector('.footer small:last-child').innerHTML=t().footer+'<br>© 2026 PIKLI';
+ document.title=lang==='vi'?'PIKLI — Court to City | Pickleball Lifestyle Việt Nam':'PIKLI — Court to City';
+ renderCart(); if(current) refreshModalCopy();
+}
+function renderCart(){count.textContent=cart.length;itemsEl.innerHTML=cart.length?cart.map((x,idx)=>'<div class="cart-row"><div><b>'+x.name+'</b><small>'+x.size+' · '+(lang==='vi'?(x.id==='tee'?t().colors.tee:x.id==='bottom'?t().colors.bottom:t().colors.cap):x.color)+'</small><button class="remove" data-remove="'+idx+'">'+t().remove+'</button></div><b>'+money(x.price)+'</b></div>').join(''):'<div class="empty">'+t().empty+'</div>';totalEl.textContent=money(cart.reduce((s,x)=>s+x.price,0));localStorage.setItem('pikliCart',JSON.stringify(cart))}
 function openOverlay(){overlay.classList.add('open')} function closeAll(){overlay.classList.remove('open');modal.classList.remove('open');drawer.classList.remove('open')}
-function openProduct(card){current={id:card.dataset.id,name:card.dataset.name,price:+card.dataset.price,color:card.dataset.color,visual:card.dataset.visual};selectedSize='';document.getElementById('modalName').textContent=current.name;document.getElementById('modalPrice').textContent=card.dataset.priceLabel;document.getElementById('modalColor').textContent=current.color;document.getElementById('modalVisual').innerHTML='<div class="visual '+current.visual+'">'+logoMarkup()+'</div>';const opts=current.id==='cap'?['ONE SIZE']:['XS','S','M','L','XL'];document.getElementById('sizeOptions').innerHTML=opts.map(s=>'<button class="size-btn" data-size="'+s+'">'+s+'</button>').join('');modal.classList.add('open');openOverlay()}
+function refreshModalCopy(){if(!current)return;document.getElementById('modalColor').textContent=lang==='vi'?(current.id==='tee'?t().colors.tee:current.id==='bottom'?t().colors.bottom:t().colors.cap):current.color;document.querySelector('#productModal .eyebrow').textContent=t().modalEy;document.getElementById('sizeLabel').textContent=t().size;document.getElementById('addToBag').textContent=t().add;document.getElementById('previewNote').textContent=t().preview}
+function openProduct(card){current={id:card.dataset.id,name:card.dataset.name,price:+card.dataset.price,color:card.dataset.color,visual:card.dataset.visual};selectedSize='';document.getElementById('modalName').textContent=current.name;document.getElementById('modalPrice').textContent=card.dataset.priceLabel;document.getElementById('modalVisual').innerHTML='<div class="visual '+current.visual+'">'+logoMarkup()+'</div>';const opts=current.id==='cap'?['ONE SIZE']:['XS','S','M','L','XL'];document.getElementById('sizeOptions').innerHTML=opts.map(s=>'<button class="size-btn" data-size="'+s+'">'+s+'</button>').join('');refreshModalCopy();modal.classList.add('open');openOverlay()}
 document.querySelectorAll('.card').forEach(c=>{c.onclick=()=>openProduct(c);c.onkeydown=e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();openProduct(c)}}});
 document.getElementById('sizeOptions').addEventListener('click',e=>{if(!e.target.matches('.size-btn'))return;document.querySelectorAll('.size-btn').forEach(b=>b.classList.remove('active'));e.target.classList.add('active');selectedSize=e.target.dataset.size});
-document.getElementById('addToBag').onclick=()=>{if(!selectedSize){showToast('Select a size first');return}cart.push({...current,size:selectedSize});renderCart();closeAll();showToast('Added to bag')};
+document.getElementById('addToBag').onclick=()=>{if(!selectedSize){showToast(t().toastSize);return}cart.push({...current,size:selectedSize});renderCart();closeAll();showToast(t().toastAdded)};
 document.getElementById('bagBtn').onclick=()=>{drawer.classList.add('open');openOverlay()};document.getElementById('modalClose').onclick=closeAll;document.getElementById('cartClose').onclick=closeAll;overlay.onclick=closeAll;
 itemsEl.addEventListener('click',e=>{if(e.target.dataset.remove!=null){cart.splice(+e.target.dataset.remove,1);renderCart()}});
-function showToast(t){toast.textContent=t;toast.classList.add('show');setTimeout(()=>toast.classList.remove('show'),1600)}
-document.getElementById('checkoutBtn').onclick=()=>{closeAll();showToast('Pre-order checkout will connect after payment setup')};
-document.querySelectorAll('[data-filter]').forEach(a=>a.addEventListener('click',()=>{const filter=a.dataset.filter;document.querySelectorAll('.card').forEach(c=>{c.style.display=filter==='all'||c.dataset.gender===filter||c.dataset.gender==='all'?'':'none'});const n=document.getElementById('filterNote');n.textContent=filter==='all'?'SHOWING DROP 001':('SHOWING '+filter.toUpperCase()+' EDIT');n.classList.add('show');setTimeout(()=>n.classList.remove('show'),1800)}));
-document.getElementById('langToggle').onclick=()=>showToast('Vietnamese / English switch ready for translation content');
-document.getElementById('earlyForm').onsubmit=e=>{e.preventDefault();const email=document.getElementById('earlyEmail').value.trim();if(!email)return;localStorage.setItem('pikliEarlyAccess',email);document.getElementById('earlyMsg').textContent='EARLY ACCESS SAVED ON THIS DEVICE · DATABASE CONNECTION COMING NEXT';showToast('Early access saved')};
-renderCart();
+function showToast(v){toast.textContent=v;toast.classList.add('show');setTimeout(()=>toast.classList.remove('show'),1600)}
+document.getElementById('checkoutBtn').onclick=()=>{closeAll();showToast(t().toastCheckout)};
+document.querySelectorAll('[data-filter]').forEach(a=>a.addEventListener('click',()=>{const filter=a.dataset.filter;document.querySelectorAll('.card').forEach(c=>{c.style.display=filter==='all'||c.dataset.gender===filter||c.dataset.gender==='all'?'':'none'});const n=document.getElementById('filterNote');n.textContent=filter==='all'?t().filterAll:(filter==='women'?t().filterWomen:t().filterMen);n.classList.add('show');setTimeout(()=>n.classList.remove('show'),1800)}));
+document.getElementById('langToggle').onclick=()=>{lang=lang==='vi'?'en':'vi';localStorage.setItem('pikliLang',lang);applyLang();showToast(lang==='vi'?'Đã chuyển sang Tiếng Việt':'Switched to English')};
+document.getElementById('earlyForm').onsubmit=e=>{e.preventDefault();const email=document.getElementById('earlyEmail').value.trim();if(!email)return;localStorage.setItem('pikliEarlyAccess',email);document.getElementById('earlyMsg').textContent=t().earlySaved;showToast(t().toastEarly)};
+applyLang();
 })();
 </script></body></html>
