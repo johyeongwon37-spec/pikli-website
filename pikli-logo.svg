@@ -1,9 +1,9 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 620" role="img" aria-labelledby="t">
 <title id="t">PIKLI logo</title>
-<g fill="#16382F">
+<g fill="#005B2D">
   <circle cx="330" cy="310" r="245"/>
 </g>
-<g fill="#ffffff">
+<g fill="#F7F4EC">
   <circle cx="330" cy="145" r="34"/>
   <circle cx="220" cy="225" r="34"/>
   <circle cx="440" cy="225" r="34"/>
@@ -12,5 +12,5 @@
   <circle cx="440" cy="405" r="34"/>
   <circle cx="330" cy="485" r="34"/>
 </g>
-<text x="650" y="400" fill="#16382F" font-family="Helvetica Neue,Arial,sans-serif" font-size="215" font-weight="700" letter-spacing="46">PIKLI</text>
+<text x="650" y="400" fill="#005B2D" font-family="Helvetica Neue,Arial,sans-serif" font-size="215" font-weight="700" letter-spacing="46">PIKLI</text>
 </svg>
