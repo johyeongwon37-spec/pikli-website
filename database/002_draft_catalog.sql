@@ -1,0 +1,28 @@
+-- Draft examples only. Stock is zero; products are NOT approved.
+begin;
+insert into public.pikli_products(id,data) values('tee','{"id":"tee","name":"COURT TEE","category":"tops","audiences":["women","men"],"visual":"tee","price":499000,"colors":["cream","forest"],"sizes":["XS","S","M","L","XL"],"images":[],"sizeGuide":null,"approved":false,"description":{"en":"A court-to-city tee concept for the first PIKLI collection. Final fabric, measurements and product photography will be confirmed after sample approval.","vi":"Mẫu áo thun từ sân đấu đến phố trong bộ sưu tập PIKLI đầu tiên. Chất liệu, số đo và ảnh sản phẩm sẽ được xác nhận sau khi duyệt mẫu."}}'::jsonb) on conflict do nothing;
+insert into public.pikli_variants(sku,product_id,color,size,price,available) values('tee_cream_XS','tee','cream','XS',499000,0) on conflict do nothing;
+insert into public.pikli_variants(sku,product_id,color,size,price,available) values('tee_cream_S','tee','cream','S',499000,0) on conflict do nothing;
+insert into public.pikli_variants(sku,product_id,color,size,price,available) values('tee_cream_M','tee','cream','M',499000,0) on conflict do nothing;
+insert into public.pikli_variants(sku,product_id,color,size,price,available) values('tee_cream_L','tee','cream','L',499000,0) on conflict do nothing;
+insert into public.pikli_variants(sku,product_id,color,size,price,available) values('tee_cream_XL','tee','cream','XL',499000,0) on conflict do nothing;
+insert into public.pikli_variants(sku,product_id,color,size,price,available) values('tee_forest_XS','tee','forest','XS',499000,0) on conflict do nothing;
+insert into public.pikli_variants(sku,product_id,color,size,price,available) values('tee_forest_S','tee','forest','S',499000,0) on conflict do nothing;
+insert into public.pikli_variants(sku,product_id,color,size,price,available) values('tee_forest_M','tee','forest','M',499000,0) on conflict do nothing;
+insert into public.pikli_variants(sku,product_id,color,size,price,available) values('tee_forest_L','tee','forest','L',499000,0) on conflict do nothing;
+insert into public.pikli_variants(sku,product_id,color,size,price,available) values('tee_forest_XL','tee','forest','XL',499000,0) on conflict do nothing;
+insert into public.pikli_products(id,data) values('bottom','{"id":"bottom","name":"COURT BOTTOM","category":"bottoms","audiences":["women","men"],"visual":"shorts","price":599000,"colors":["forest","cream"],"sizes":["XS","S","M","L","XL"],"images":[],"sizeGuide":null,"approved":false,"description":{"en":"A versatile shorts concept for pickleball and everyday plans. This is a design preview, not a photograph of a finished garment.","vi":"Mẫu quần short linh hoạt cho pickleball và hoạt động hằng ngày. Đây là hình minh họa thiết kế, chưa phải ảnh sản phẩm hoàn thiện."}}'::jsonb) on conflict do nothing;
+insert into public.pikli_variants(sku,product_id,color,size,price,available) values('bottom_forest_XS','bottom','forest','XS',599000,0) on conflict do nothing;
+insert into public.pikli_variants(sku,product_id,color,size,price,available) values('bottom_forest_S','bottom','forest','S',599000,0) on conflict do nothing;
+insert into public.pikli_variants(sku,product_id,color,size,price,available) values('bottom_forest_M','bottom','forest','M',599000,0) on conflict do nothing;
+insert into public.pikli_variants(sku,product_id,color,size,price,available) values('bottom_forest_L','bottom','forest','L',599000,0) on conflict do nothing;
+insert into public.pikli_variants(sku,product_id,color,size,price,available) values('bottom_forest_XL','bottom','forest','XL',599000,0) on conflict do nothing;
+insert into public.pikli_variants(sku,product_id,color,size,price,available) values('bottom_cream_XS','bottom','cream','XS',599000,0) on conflict do nothing;
+insert into public.pikli_variants(sku,product_id,color,size,price,available) values('bottom_cream_S','bottom','cream','S',599000,0) on conflict do nothing;
+insert into public.pikli_variants(sku,product_id,color,size,price,available) values('bottom_cream_M','bottom','cream','M',599000,0) on conflict do nothing;
+insert into public.pikli_variants(sku,product_id,color,size,price,available) values('bottom_cream_L','bottom','cream','L',599000,0) on conflict do nothing;
+insert into public.pikli_variants(sku,product_id,color,size,price,available) values('bottom_cream_XL','bottom','cream','XL',599000,0) on conflict do nothing;
+insert into public.pikli_products(id,data) values('cap','{"id":"cap","name":"CLUB CAP","category":"accessories","audiences":["women","men"],"visual":"cap","price":449000,"colors":["forest","cream"],"sizes":["ONE SIZE"],"images":[],"sizeGuide":null,"approved":false,"description":{"en":"The PIKLI cap concept. Final construction, fit and delivery details will be published before sales open.","vi":"Mẫu mũ PIKLI. Kết cấu, kích thước và thông tin giao hàng sẽ được công bố trước khi mở bán."}}'::jsonb) on conflict do nothing;
+insert into public.pikli_variants(sku,product_id,color,size,price,available) values('cap_forest_ONE-SIZE','cap','forest','ONE SIZE',449000,0) on conflict do nothing;
+insert into public.pikli_variants(sku,product_id,color,size,price,available) values('cap_cream_ONE-SIZE','cap','cream','ONE SIZE',449000,0) on conflict do nothing;
+commit;
