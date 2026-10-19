@@ -1,0 +1,53 @@
+name: Assemble PIKLI film
+on:
+  push:
+    paths:
+      - '.github/workflows/pikli-film.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  merge:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Download five original Higgsfield scenes
+        shell: bash
+        env:
+          URL_01: 'https://d8j0ntlcm91z4.cloudfront.net/user_3B8S6MSinLUGNQQQnU9GzQediYY/hf_20261019_064325_ae9515f1-075b-4d6d-b66f-c29f590348c9.mp4'
+          URL_02: 'https://d8j0ntlcm91z4.cloudfront.net/user_3B8S6MSinLUGNQQQnU9GzQediYY/hf_20261019_064325_57a692c1-8abe-4ede-a765-d2ee3a18f969.mp4'
+          URL_03: 'https://d8j0ntlcm91z4.cloudfront.net/user_3B8S6MSinLUGNQQQnU9GzQediYY/hf_20261019_064326_8d2ec2a0-fb08-4e60-afd7-28fb9b1e2340.mp4'
+          URL_04: 'https://d8j0ntlcm91z4.cloudfront.net/user_3B8S6MSinLUGNQQQnU9GzQediYY/hf_20261019_064325_18600b51-6655-4d28-a4d8-732a8a09ee6a.mp4'
+          URL_05: 'https://d8j0ntlcm91z4.cloudfront.net/user_3B8S6MSinLUGNQQQnU9GzQediYY/hf_20261019_064325_6ae3a802-267c-45da-9d42-701c378d629c.mp4'
+        run: |
+          set -euo pipefail
+          mkdir -p raw output
+          for i in 01 02 03 04 05; do
+            var="URL_${i}"
+            curl --fail --location --silent --show-error --retry 4 --retry-delay 3 "${!var}" -o "raw/${i}.mp4"
+            ffprobe -v error -show_entries format=duration,size -of default=noprint_wrappers=1 "raw/${i}.mp4"
+          done
+      - name: Normalize and concatenate scenes in order
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p normalized
+          for i in 01 02 03 04 05; do
+            ffmpeg -hide_banner -loglevel error -y -i "raw/${i}.mp4" \
+              -map 0:v:0 -map '0:a:0?' \
+              -vf 'scale=1280:720:force_original_aspect_ratio=decrease,pad=1280:720:(ow-iw)/2:(oh-ih)/2,setsar=1,fps=24' \
+              -c:v libx264 -preset fast -crf 21 -pix_fmt yuv420p \
+              -c:a aac -b:a 160k -ar 48000 -ac 2 \
+              "normalized/${i}.mp4"
+          done
+          for i in 01 02 03 04 05; do printf "file '%s.mp4'\n" "$i"; done > normalized/segments.txt
+          ffmpeg -hide_banner -loglevel error -y -f concat -safe 0 -i normalized/segments.txt \
+            -c copy -movflags +faststart "output/PIKLI_The_Game_Never_Ends_45s.mp4"
+          ffprobe -v error -show_entries format=duration,size -of default=noprint_wrappers=1 \
+            "output/PIKLI_The_Game_Never_Ends_45s.mp4"
+      - name: Upload merged campaign video
+        uses: actions/upload-artifact@v4
+        with:
+          name: PIKLI-The-Game-Never-Ends-45s
+          path: output/PIKLI_The_Game_Never_Ends_45s.mp4
+          retention-days: 30
