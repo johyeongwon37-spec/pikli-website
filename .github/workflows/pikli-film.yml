@@ -11,6 +11,8 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 20
     steps:
+      - name: Install video encoder
+        run: sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg
       - name: Download five original Higgsfield scenes
         shell: bash
         env:
